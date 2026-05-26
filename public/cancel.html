@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Payment Cancelled — Smart Compliance</title>
+<style>
+  :root {
+    --navy: #1a2744; --navy2: #243158; --gold: #c9a84c;
+    --white: #ffffff; --light: #f4f6fb; --muted: #6b7a99; --border: #dce3f0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--light); color: var(--navy);
+    min-height: 100vh; display: flex; flex-direction: column;
+  }
+  header { background: var(--navy); padding: 18px 40px; }
+  header .logo { color: var(--gold); font-size: 1.4rem; font-weight: 800; letter-spacing: 1px; }
+  header .logo span { color: var(--white); font-weight: 400; }
+  .main {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; padding: 60px 20px;
+  }
+  .icon-circle {
+    width: 90px; height: 90px; border-radius: 50%;
+    background: #f0f4ff; border: 3px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 28px; font-size: 2.8rem;
+  }
+  .cancel-card {
+    background: var(--white); border-radius: 20px;
+    padding: 44px 44px 36px; max-width: 520px; width: 100%;
+    text-align: center; box-shadow: 0 8px 40px rgba(26,39,68,0.09);
+    border: 1px solid var(--border);
+  }
+  .cancel-card h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 10px; }
+  .cancel-card p { color: var(--muted); font-size: 0.95rem; margin-bottom: 32px; line-height: 1.6; }
+  .reassure-box {
+    background: var(--light); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px 24px; text-align: left; margin-bottom: 28px;
+  }
+  .reassure-box h3 {
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--muted); margin-bottom: 12px;
+  }
+  .reassure-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.88rem; color: var(--navy); margin-bottom: 10px;
+  }
+  .reassure-item:last-child { margin-bottom: 0; }
+  .reassure-item .dot { color: var(--gold); font-size: 1.2rem; }
+  .btn-back {
+    display: block; width: 100%; padding: 16px;
+    background: var(--gold); color: var(--navy); border: none;
+    border-radius: 10px; font-size: 1rem; font-weight: 700;
+    cursor: pointer; text-decoration: none; text-align: center;
+    transition: background 0.2s; margin-bottom: 12px;
+  }
+  .btn-back:hover { background: #b8962e; }
+  .btn-support {
+    display: block; width: 100%; padding: 14px;
+    background: transparent; color: var(--muted);
+    border: 1px solid var(--border); border-radius: 10px;
+    font-size: 0.9rem; text-decoration: none; text-align: center;
+    transition: border-color 0.2s;
+  }
+  .btn-support:hover { border-color: var(--navy); color: var(--navy); }
+  footer { text-align: center; padding: 20px; font-size: 0.78rem; color: var(--muted); }
+</style>
+</head>
+<body>
+<header><div class="logo">Smart<span>Compliance</span></div></header>
+<div class="main">
+  <div class="icon-circle">💳</div>
+  <div class="cancel-card">
+    <h1>No Worries!</h1>
+    <p>Your payment was cancelled and <strong>nothing was charged.</strong> Your agreements are saved — you can pick a plan and complete checkout whenever you're ready.</p>
+    <div class="reassure-box">
+      <h3>Good to Know</h3>
+      <div class="reassure-item"><span class="dot">✔</span> Your signed agreements are safely saved</div>
+      <div class="reassure-item"><span class="dot">✔</span> No charge was made to your card</div>
+      <div class="reassure-item"><span class="dot">✔</span> You can return and complete this at any time</div>
+      <div class="reassure-item"><span class="dot">✔</span> 30-day money-back guarantee when you do subscribe</div>
+    </div>
+    <a href="/checkout.html" class="btn-back">← Return to Plan Selection</a>
+    <a href="mailto:support@smartcompliance.com" class="btn-support">Have Questions? Contact Support</a>
+  </div>
+</div>
+<footer>© 2026 Smart Compliance LLC &nbsp;|&nbsp; <a href="mailto:support@smartcompliance.com">support@smartcompliance.com</a></footer>
+</body>
+</html>
