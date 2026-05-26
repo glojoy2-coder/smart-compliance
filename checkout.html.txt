@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Choose Your Plan — Smart Compliance</title>
+<style>
+  :root {
+    --navy:   #1a2744;
+    --navy2:  #243158;
+    --gold:   #c9a84c;
+    --green:  #2ecc71;
+    --white:  #ffffff;
+    --light:  #f4f6fb;
+    --muted:  #6b7a99;
+    --border: #dce3f0;
+    --red:    #e74c3c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--light);
+    color: var(--navy);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--navy);
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  header .logo {
+    color: var(--gold);
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+  }
+  header .logo span { color: var(--white); font-weight: 400; }
+  header .step-badge {
+    background: rgba(255,255,255,0.1);
+    color: var(--white);
+    font-size: 0.8rem;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  /* ── STEPS BAR ── */
+  .steps-bar {
+    background: var(--navy2);
+    padding: 14px 40px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+  .step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.45);
+    flex: 1;
+  }
+  .step.done { color: var(--green); }
+  .step.active { color: var(--white); font-weight: 600; }
+  .step-num {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 700;
+    background: rgba(255,255,255,0.1);
+    border: 2px solid rgba(255,255,255,0.2);
+    flex-shrink: 0;
+  }
+  .step.done .step-num {
+    background: var(--green);
+    border-color: var(--green);
+    color: var(--white);
+  }
+  .step.active .step-num {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--navy);
+  }
+  .step-divider {
+    width: 30px; height: 2px;
+    background: rgba(255,255,255,0.15);
+    flex-shrink: 0;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    text-align: center;
+    padding: 48px 20px 32px;
+  }
+  .hero h1 {
+    font-size: 2rem;
+    color: var(--navy);
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+  .hero p {
+    color: var(--muted);
+    font-size: 1rem;
+    max-width: 520px;
+    margin: 0 auto 18px;
+  }
+  .hero .guarantee {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    color: var(--green);
+    background: #eafaf2;
+    border: 1px solid #b7ebb2;
+    padding: 6px 16px;
+    border-radius: 20px;
+  }
+
+  /* ── PLAN GRID ── */
+  .plans {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    padding: 10px 30px 60px;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .plan-card {
+    background: var(--white);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 36px 32px;
+    flex: 1;
+    min-width: 280px;
+    max-width: 340px;
+    position: relative;
+    transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+  .plan-card:hover {
+    box-shadow: 0 12px 40px rgba(26,39,68,0.12);
+    transform: translateY(-4px);
+  }
+  .plan-card.featured {
+    border-color: var(--gold);
+    box-shadow: 0 8px 32px rgba(201,168,76,0.18);
+  }
+
+  .badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 5px 18px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+
+  .plan-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .plan-price {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .plan-price sup { font-size: 1.2rem; vertical-align: top; margin-top: 8px; }
+  .plan-price .per { font-size: 1rem; font-weight: 400; color: var(--muted); }
+  .plan-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 10px 0 24px;
+    line-height: 1.5;
+  }
+
+  .divider { height: 1px; background: var(--border); margin: 0 0 22px; }
+
+  .features {
+    list-style: none;
+    margin-bottom: 32px;
+    flex: 1;
+  }
+  .features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.88rem;
+    color: #344066;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+  .features li .check {
+    color: var(--green);
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .features li .lock {
+    color: #ccc;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .features li.locked { color: #bbb; }
+
+  .btn-subscribe {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    letter-spacing: 0.5px;
+  }
+  .btn-subscribe:active { transform: scale(0.98); }
+  .btn-starter    { background: var(--navy); color: var(--white); }
+  .btn-starter:hover { background: #243158; }
+  .btn-professional { background: var(--gold); color: var(--navy); }
+  .btn-professional:hover { background: #b8962e; }
+  .btn-enterprise { background: var(--navy); color: var(--white); }
+  .btn-enterprise:hover { background: #243158; }
+
+  /* ── LOADING OVERLAY ── */
+  .overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(26,39,68,0.85);
+    z-index: 999;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    gap: 18px;
+  }
+  .overlay.show { display: flex; }
+  .spinner {
+    width: 48px; height: 48px;
+    border: 4px solid rgba(255,255,255,0.2);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .overlay p { font-size: 1.1rem; }
+
+  /* ── ERROR BANNER ── */
+  .error-banner {
+    display: none;
+    background: #fdf0ef;
+    border: 1px solid var(--red);
+    color: var(--red);
+    padding: 14px 24px;
+    border-radius: 10px;
+    margin: 0 auto 24px;
+    max-width: 800px;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  .error-banner.show { display: block; }
+
+  /* ── FAQ STRIP ── */
+  .faq {
+    background: var(--navy);
+    color: var(--white);
+    text-align: center;
+    padding: 36px 30px;
+  }
+  .faq h3 { font-size: 1.1rem; margin-bottom: 20px; color: var(--gold); }
+  .faq-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .faq-item {
+    flex: 1; min-width: 220px; max-width: 260px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 18px 20px;
+    text-align: left;
+  }
+  .faq-item h4 { font-size: 0.85rem; color: var(--gold); margin-bottom: 6px; }
+  .faq-item p { font-size: 0.82rem; color: rgba(255,255,255,0.7); line-height: 1.5; }
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">Smart<span>Compliance</span></div>
+  <div class="step-badge">Step 3 of 3 — Choose Your Plan</div>
+</header>
+
+<!-- STEPS BAR -->
+<div class="steps-bar">
+  <div class="step done">
+    <div class="step-num">✓</div>
+    Terms of Agreement
+  </div>
+  <div class="step-divider"></div>
+  <div class="step done">
+    <div class="step-num">✓</div>
+    Service Agreement
+  </div>
+  <div class="step-divider"></div>
+  <div class="step active">
+    <div class="step-num">3</div>
+    Select Plan &amp; Pay
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Choose Your Compliance Plan</h1>
+  <p>All plans include instant access after payment. Upgrade or cancel anytime. No contracts — no surprises.</p>
+  <div class="guarantee">✔ 30-Day Money-Back Guarantee &nbsp;|&nbsp; ✔ Secure Checkout via Stripe &nbsp;|&nbsp; ✔ Cancel Anytime</div>
+</div>
+
+<!-- ERROR BANNER -->
+<div class="error-banner" id="errorBanner">
+  Something went wrong processing your request. Please try again or contact support@smartcompliance.com
+</div>
+
+<!-- PLAN CARDS -->
+<div class="plans">
+
+  <!-- STARTER -->
+  <div class="plan-card">
+    <div class="plan-name">Starter</div>
+    <div class="plan-price"><sup>$</sup>99<span class="per">/month</span></div>
+    <div class="plan-desc">Perfect for small home health agencies ready to start their compliance journey.</div>
+    <div class="divider"></div>
+    <ul class="features">
+      <li><span class="check">✔</span> 2 Audit Categories (Documentation &amp; Care Plans)</li>
+      <li><span class="check">✔</span> Compliance Score Dashboard</li>
+      <li><span class="check">✔</span> Embed Widget for Your Website</li>
+      <li><span class="check">✔</span> Monthly Compliance Score Report</li>
+      <li><span class="check">✔</span> Email Support</li>
+      <li class="locked"><span class="lock">✗</span> Full 6-Category Audit Access</li>
+      <li class="locked"><span class="lock">✗</span> Staff Credentials Tracking</li>
+      <li class="locked"><span class="lock">✗</span> Priority Support</li>
+    </ul>
+    <button class="btn-subscribe btn-starter" onclick="subscribe('starter')">
+      Get Started — $99/mo
+    </button>
+  </div>
+
+  <!-- PROFESSIONAL (FEATURED) -->
+  <div class="plan-card featured">
+    <div class="badge">⭐ MOST POPULAR</div>
+    <div class="plan-name">Professional</div>
+    <div class="plan-price"><sup>$</sup>197<span class="per">/month</span></div>
+    <div class="plan-desc">Ideal for established agencies preparing for their next CMS survey.</div>
+    <div class="divider"></div>
+    <ul class="features">
+      <li><span class="check">✔</span> 4 Audit Categories</li>
+      <li><span class="check">✔</span> Full Compliance Score Dashboard</li>
+      <li><span class="check">✔</span> Embed Widget for Your Website</li>
+      <li><span class="check">✔</span> Weekly Compliance Reports</li>
+      <li><span class="check">✔</span> Staff Credentials Tracking</li>
+      <li><span class="check">✔</span> Billing &amp; Coding Compliance Module</li>
+      <li><span class="check">✔</span> Priority Email &amp; Chat Support</li>
+      <li class="locked"><span class="lock">✗</span> Emergency Preparedness Module</li>
+    </ul>
+    <button class="btn-subscribe btn-professional" onclick="subscribe('professional')">
+      Subscribe — $197/mo
+    </button>
+  </div>
+
+  <!-- ENTERPRISE -->
+  <div class="plan-card">
+    <div class="plan-name">Enterprise</div>
+    <div class="plan-price"><sup>$</sup>397<span class="per">/month</span></div>
+    <div class="plan-desc">Full platform access for agencies that demand complete compliance coverage.</div>
+    <div class="divider"></div>
+    <ul class="features">
+      <li><span class="check">✔</span> All 6 Audit Categories — Full Access</li>
+      <li><span class="check">✔</span> Real-Time Compliance Score Dashboard</li>
+      <li><span class="check">✔</span> Embed Widget for Your Website</li>
+      <li><span class="check">✔</span> Daily Reports &amp; Alerts</li>
+      <li><span class="check">✔</span> Staff Credentials &amp; OIG Monitoring</li>
+      <li><span class="check">✔</span> Full Billing &amp; Coding Module</li>
+      <li><span class="check">✔</span> Emergency Preparedness Module</li>
+      <li><span class="check">✔</span> Dedicated Support Line</li>
+    </ul>
+    <button class="btn-subscribe btn-enterprise" onclick="subscribe('enterprise')">
+      Subscribe — $397/mo
+    </button>
+  </div>
+
+</div>
+
+<!-- FAQ STRIP -->
+<div class="faq">
+  <h3>Frequently Asked Questions</h3>
+  <div class="faq-grid">
+    <div class="faq-item">
+      <h4>When does my access start?</h4>
+      <p>Immediately after payment. Your embed code and dashboard access are activated within seconds.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Can I upgrade my plan later?</h4>
+      <p>Yes. Upgrade anytime from your billing dashboard. Stripe prorates the difference automatically.</p>
+    </div>
+    <div class="faq-item">
+      <h4>How do I cancel?</h4>
+      <p>Cancel anytime from your billing dashboard. Access continues through the end of your paid period.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Is my payment secure?</h4>
+      <p>All payments are processed by Stripe — the same platform used by Amazon, Google, and millions of businesses worldwide.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  © 2026 Smart Compliance LLC &nbsp;|&nbsp; Questions? <a href="mailto:support@smartcompliance.com">support@smartcompliance.com</a>
+</footer>
+
+<!-- LOADING OVERLAY -->
+<div class="overlay" id="loadingOverlay">
+  <div class="spinner"></div>
+  <p>Preparing your secure checkout…</p>
+</div>
+
+<script>
+  // ─────────────────────────────────────────────
+  //  Get customer token from URL or localStorage
+  // ─────────────────────────────────────────────
+  function getToken() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('token') || localStorage.getItem('sc_token') || '';
+  }
+
+  // ─────────────────────────────────────────────
+  //  Subscribe — call /api/checkout, redirect
+  // ─────────────────────────────────────────────
+  async function subscribe(plan) {
+    const token = getToken();
+    const overlay  = document.getElementById('loadingOverlay');
+    const errBanner = document.getElementById('errorBanner');
+    errBanner.classList.remove('show');
+    overlay.classList.add('show');
+
+    try {
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({ plan })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.error || 'Checkout failed');
+
+      // Redirect to Stripe hosted checkout
+      window.location.href = data.url;
+
+    } catch (err) {
+      overlay.classList.remove('show');
+      errBanner.textContent = err.message || 'Something went wrong. Please try again.';
+      errBanner.classList.add('show');
+    }
+  }
+</script>
+</body>
+</html>
